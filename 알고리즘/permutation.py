@@ -23,4 +23,5 @@ def solution():
     for i in range(1, len(arr) + 1):  # i는 순열의 크기
         permutation_algorithm(arr, perm, 0, i, visited)
 
+
 solution()
