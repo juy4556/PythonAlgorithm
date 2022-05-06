@@ -10,24 +10,22 @@ def turn_left():
     global r, c, d, result
     count = 0
     while True:
-        d -= 1
-        if d < 0:
-            d = 3
+        d = (d+3) % 4
+        count += 1
+        x = r + dx[d]
+        y = c + dy[d]
+        if 0 <= x <= N and 0 <= y <= M and space[x][y] == 0:
+            r, c = x, y
+            space[x][y] = 1
+            result += 1
+            return True
         if count == 4:
             if space[r - dx[d]][c - dy[d]] == 1:
                 return False
             else:
                 r, c = (r - dx[d]), (c - dy[d])
-                count = 0
-        x = r-1 + dx[d]
-        y = c-1 + dy[d]
-        if space[x][y] == 0:
-            r, c = x+1, y+1
-            print(r, c, d)
-            space[x][y] = 2  # 청소는 2
-            result += 1
-            return True
-        count += 1
+                return True
+
 
 
 def solution():
@@ -35,15 +33,12 @@ def solution():
     for _ in range(N):
         space.append(list(map(int, input().split())))
 
-    space[r-1][c-1] = 2  # 첫 위치 청소
+    space[r][c] = 1  # 첫 위치 청소
     result = 1
     while True:
         if not turn_left():
             break
-        # for i in range(N):
-        #     for j in range(M):
-        #         print(space[i][j], end=' ')
-        #     print()
+        print(r, c, d)
     return result
 
 
