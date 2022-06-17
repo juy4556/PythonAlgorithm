@@ -4,3 +4,4 @@ for _ in range(R):
     space.append(list(map(int, input().split())))
 
 def diffusion():
+    #ha..
