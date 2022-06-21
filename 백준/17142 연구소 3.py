@@ -1,4 +1,3 @@
-import copy
 from collections import deque
 
 N, M = map(int, input().split())
@@ -9,68 +8,55 @@ comb = []
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 result = int(1e9)
-visited = [[False] * N for _ in range(N)]
-flag = False
+visited = [[0] * N for _ in range(N)]
+virus = []
 q = deque()
-new_q = deque()
+wall_count = 0
 
 
 def check(array):
+    count = 0
     for i in range(N):
-        print(array[i])
-
-    for i in range(N):
-        if array[i].count(0) > 0:
-            return False
-    return True
+        count += array[i].count(-1)
+    if count == wall_count:
+        return True
+    return False
 
 
-def spread_virus(temp, x, y):
-    global flag, q
+def spread_virus(x, y):
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
-        if nx < 0 or ny < 0 or nx >= N or ny >= N or temp[nx][ny] == 1:
+        if nx < 0 or ny < 0 or nx >= N or ny >= N or space[nx][ny] == 1 or visited[nx][ny] >= 0:
             continue
-        temp[nx][ny] = 3
-        new_q.append([nx, ny])
-        flag = True
-    return temp
+        visited[nx][ny] = visited[x][y] + 1
+        q.append([nx, ny])
+
+
+def bfs():
+    global result, visited, q
+    q = deque()
+    visited = [[-1] * N for _ in range(N)]
+    for i in range(M):
+        q.append([comb[i][0], comb[i][1]])
+        visited[comb[i][0]][comb[i][1]] = 0
+    time = 0
+    while q:
+        x, y = q.popleft()
+        spread_virus(x, y)
+    for i in range(N):
+        for j in range(N):
+            if space[i][j] == 2 or space[i][j] == 1:
+                continue
+            time = max(time, visited[i][j])
+    if check(visited):
+        result = min(result, time)
 
 
 def comb_three(array, begin):
-    global result, visited, flag, q, new_q
     if len(comb) == M:
-        q = deque()
-        new_q = deque()
-        temp = copy.deepcopy(space)
-        visited = [[False] * N for _ in range(N)]
-        for i in range(M):
-            new_q.append([comb[i][0], comb[i][1]])
-            temp[comb[i][0]][comb[i][1]] = 3
-        time = 0
-        flag = False
-
-        for t in range(N):
-            q = new_q
-            while q:
-                if check(temp):
-                    break
-                print(q)
-                x, y = q.popleft()
-                if not visited[x][y]:
-                    # print(x, y)
-                    visited[x][y] = True
-                    temp = spread_virus(temp, x, y)
-            if flag:
-                time += 1
-            else:
-                break
-            result = min(result, time)
-            print(result)
-        # result = min(result, time)
+        bfs()
         return
-
     for i in range(begin, len(array)):
         comb.append(array[i])
         comb_three(array, i + 1)
@@ -78,14 +64,15 @@ def comb_three(array, begin):
 
 
 def solution():
-    virus = []
+    global wall_count
     for i in range(N):
         for j in range(N):
             if space[i][j] == 2:
                 virus.append([i, j])
+            elif space[i][j] == 1:
+                wall_count += 1
 
     comb_three(virus, 0)
-
     if result > N:
         print(-1)
     else:
