@@ -4,7 +4,6 @@ for _ in range(N):
     space.append(list(map(int, input().split())))
 result = 0
 
-
 def left(arr):
     for i in range(N):  # 행
         j = 0
@@ -45,7 +44,6 @@ def right(arr):
                 j -= 1
                 k = j
             elif arr[i][j] == arr[i][k]:
-                print(j, k)
                 arr[i][j] *= 2
                 arr[i][k] = 0
                 j = k - 1
@@ -59,7 +57,6 @@ def right(arr):
         for _ in range(N - length):
             temp.append(0)
         temp.reverse()
-        # print(temp)
         arr[i] = temp
     return arr
 
@@ -122,6 +119,7 @@ def down(arr):
             arr[l][i] = temp[l]
     return arr
 
+dict = {0:left, 1:right, 2:up, 3:down}
 
 def dfs(array, M):
     global result
@@ -131,15 +129,15 @@ def dfs(array, M):
     #     print()
     # print("===========================")
     if M == 5:
-        max_num = 0
+        print(1)
         for i in range(N):
-            max_num = max(max_num, max(array[i]))
-        result = max(result, max_num)
+            result = max(result, max(array[i]))
         return
-    dfs(left(array), M + 1)
-    dfs(right(array), M + 1)
-    dfs(up(array), M + 1)
-    dfs(down(array), M + 1)
+    arr = [item[:] for item in array]
+    for i in range(4):
+        tmp = dict[i](arr)
+        print(tmp)
+        dfs(tmp, M+1)
 
 
 def solution():
