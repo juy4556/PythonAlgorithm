@@ -4,6 +4,11 @@ for _ in range(N):
     space.append(list(map(int, input().split())))
 result = 0
 
+
+def move():
+
+
+
 def left(arr):
     for i in range(N):  # 행
         j = 0
@@ -120,6 +125,7 @@ def down(arr):
     return arr
 
 dict = {0:left, 1:right, 2:up, 3:down}
+
 
 def dfs(array, M):
     global result
