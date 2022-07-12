@@ -1,3 +1,5 @@
+import copy
+
 N = int(input())
 space = []
 for _ in range(N):
@@ -118,6 +120,9 @@ def down(arr):
         temp.reverse()
         for l in range(N):
             arr[l][i] = temp[l]
+    for i in range(N):
+        print(arr[i])
+    print("===============")
     return arr
 
 
@@ -126,20 +131,13 @@ dict = {0: left, 1: right, 2: up, 3: down}
 
 def dfs(array, M):
     global result
-    # for l in range(N):
-    #     for m in range(N):
-    #         print(arr[l][m], end=' ')
-    #     print()
-    # print("===========================")
     if M == 5:
-        print(1)
         for i in range(N):
             result = max(result, max(array[i]))
         return
-    arr = [item[:] for item in array]
+    # arr = [item[:] for item in array]
     for i in range(4):
-        tmp = dict[i](arr)
-        print(tmp)
+        tmp = dict[i](copy.deepcopy(array))
         dfs(tmp, M + 1)
 
 
