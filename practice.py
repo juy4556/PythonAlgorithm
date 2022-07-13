@@ -1,4 +1,15 @@
 import copy
+# arr = [[1,1,1,1],[2,2,2,2],[3,3,3,3],[4,4,4,4]]
+#
+# new_arr1 = copy.deepcopy(arr)
+# new_arr2 = [item[:] for item in arr]
+#
+# new_arr1[2][3] = 7
+# print(new_arr1)
+# new_arr2[2][3] = 8
+# print(new_arr2)
+# print(arr)
+import copy
 
 N = int(input())
 space = []
@@ -120,9 +131,6 @@ def down(arr):
         temp.reverse()
         for l in range(N):
             arr[l][i] = temp[l]
-    for i in range(N):
-        print(arr[i])
-    print("===============")
     return arr
 
 
@@ -135,9 +143,9 @@ def dfs(array, M):
         for i in range(N):
             result = max(result, max(array[i]))
         return
-    # arr = [item[:] for item in array]
     for i in range(4):
-        tmp = dict[i](copy.deepcopy(array))
+        arr = [item[:] for item in array]
+        tmp = dict[i](arr)
         dfs(tmp, M + 1)
 
 
