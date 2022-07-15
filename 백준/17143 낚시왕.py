@@ -1,74 +1,66 @@
 R, C, M = map(int, input().split())
-sharks = []
+space = [[[] for _ in range(C)] for _ in range(R)]
 result = 0
+dx = [-1, 1, 0, 0]
+dy = [0, 0, 1, -1]
 for _ in range(M):
-    r, c, s, d, z = map(int, input().split())
-    sharks.append([r, c, s, d, z])
+    r, c, s, d, z = map(int, input().split())  # r,c 좌표, s는 속력, d는 이동 방향, z는 크기
+    space[r - 1][c - 1].append([s, d, z])
 
 
-def capture_shark(c):
-    global sharks, result
-    idx = 0
-    flag = False
-    for n in range(len(sharks)):
-        if sharks[n][1] == c:
-            flag = True
-            result += sharks[n][4]
-            idx = n
+def capture_shark(n):
+    global space, result
+    for r in range(R):
+        if len(space[r][n]) > 0:
+            result += space[r][n][0][2]
+            space[r][n] = []
             break
-    if flag:
-        sharks = sharks[:idx] + sharks[idx + 1:]
 
 
-def move_shark():
-    global sharks
-    for n in range(len(sharks)):
-        x, y, speed, dir = sharks[n][0], sharks[n][1], sharks[n][2], sharks[n][3]
-        new_x, new_y, new_d = x, y, dir
-        if dir == 1:  # 위
-            temp = speed % (2 * R - 2)
-            if (R-x-1 - temp // R) % 2:  # 홀
-                new_d = (dir + 2) % 4
-                new_x = R - (x + temp) % R
-            else:
-                new_x = (x + temp) % (R - 2)
-        elif dir == 2:  # 아래
-            temp = speed % (2 * R - 2)
-            if (x + temp // R) % 2:  # 홀
-                new_d = (dir + 2) % 4
-                new_x = R - (x+temp) % R
-            else:
-                new_x = (x+temp) %
-        elif dir == 3:  # 오른
-            new_y = (y + speed) % (2 * C - 2) + 1
-            if (y + speed // C - 1) % 2 == 1:
-                new_d = (dir + 2) % 4
-
-        elif dir == 4:  # 왼
-            new_y = (y - speed) % (2 * C - 2) + 1
-            if (y - speed // C - 1) % 2 == 1:
-                new_d = (dir + 2) % 4
-        sharks[n][0], sharks[n][1], sharks[n][3] = new_x, new_y, new_d
-    # 같은 위치 상어 중 가장 큰 상어만 남기기
-    sharks.sort(key=lambda s: (s[0], s[1], -s[4]))  # x,y 작은 순, 사이즈는 큰 순 정렬
-    a, b = sharks[0][0], sharks[0][1]
-    new_sharks = []
-    new_sharks.append(sharks[0])
-    for n in range(1, len(sharks)):
-        if a == sharks[n][0] and b == sharks[n][1]:
-            continue
-        else:
-            a, b = sharks[n][0], sharks[n][1]
-            new_sharks.append(sharks[n])
-    sharks = new_sharks
+def move_shark(r, c, a):
+    speed, dir, size = a[0][0], a[0][1], a[0][2]
+    if dir == 1 or dir == 2:
+        temp = speed % (2 * R - 2)
+        for t in range(temp):
+            if r == 0:
+                dir = 2
+            elif r == R - 1:
+                dir = 1
+            if 0 <= r + dx[dir-1] <= R - 1:
+                r += dx[dir - 1]
+    elif dir == 3 or dir == 4:
+        temp = speed % (2 * C - 2)
+        for t in range(temp):
+            if c == 0:
+                dir = 3
+            elif c == C - 1:
+                dir = 4
+            if 0 <= c + dy[dir-1] <= C - 1:
+                c += dy[dir - 1]
+    return r, c, speed, dir, size
 
 
 def solution():
-    sharks.sort(key=lambda x: (x[0], x[1]))
-    for c in range(1,C+1):  # 열
-        capture_shark(c)
-        print(sharks)
-        move_shark()
+    global space
+    for n in range(C):
+        for r in range(R):
+            for c in range(C):
+                if len(space[r][c]) > 1:  # 같은 구역에 2마리 이상의 상어가 있을 때
+                    space[r][c].sort(key=lambda a: (-a[2]))  # 사이즈 기준 오름차순
+                    space[r][c] = space[r][c][:1]
+        capture_shark(n)
+        new_space = [[[] for _ in range(C)] for _ in range(R)]
+        for r in range(R):
+            for c in range(C):
+                if len(space[r][c]) > 0:
+                    new_r, new_c, speed, dir, size = move_shark(r, c, space[r][c])
+                    new_space[new_r][new_c].append([speed, dir, size])
+        for r in range(R):
+            for c in range(C):
+                if len(new_space[r][c]) > 1:  # 같은 구역에 2마리 이상의 상어가 있을 때
+                    new_space[r][c].sort(key=lambda a: (-a[2]))  # 사이즈 기준 오름차순
+                    new_space[r][c] = new_space[r][c][:1]
+        space = new_space
     print(result)
 
 
