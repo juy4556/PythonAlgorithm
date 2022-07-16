@@ -7,126 +7,88 @@ for _ in range(N):
 result = 0
 
 
-def left(arr):
-    for i in range(N):  # 행
-        j = 0
-        k = j + 1
-        while j < N and k < N:
-            if arr[i][k] == 0:
-                k += 1
-                continue
-            if arr[i][j] != arr[i][k]:
-                j += 1
-                k = j
-            elif arr[i][j] == arr[i][k]:
-                arr[i][j] *= 2
-                arr[i][k] = 0
-                j = k + 1
-                k = j
-            k += 1
-        temp = []
-        for l in range(N):
-            if arr[i][l] != 0:
-                temp.append(arr[i][l])
-        length = len(temp)
-        for _ in range(N - length):
-            temp.append(0)
-        arr[i] = temp
+def move(arr, d):
+    if d == 0:  # 동
+        for i in range(N):  # 행
+            std = N - 1
+            for j in range(N - 2, -1, -1):
+                if arr[i][j]:
+                    tmp = arr[i][j]
+                    if arr[i][std] == tmp:
+                        arr[i][std] *= 2
+                        std -= 1
+                        arr[i][j] = 0
+
+                    elif arr[i][std] == 0:
+                        arr[i][std] = tmp
+                        arr[i][j] = 0
+
+                    else:
+                        std -= 1
+                        arr[i][std] = tmp
+                        if std != j:
+                            arr[i][j] = 0
+
+    elif d == 1:  # 남
+        for i in range(N):  # 행
+            std = N - 1
+            for j in range(N - 2, -1, -1):  # 열
+                if arr[j][i]:
+                    tmp = arr[j][i]
+                    if arr[std][i] == tmp:
+                        arr[std][i] *= 2
+                        std -= 1
+                        arr[j][i] = 0
+                    elif arr[std][i] == 0:
+                        arr[std][i] = tmp
+                        arr[j][i] = 0
+
+                    else:
+                        std -= 1
+                        arr[std][i] = tmp
+                        if std != j:
+                            arr[j][i] = 0
+
+    elif d == 2:  # 서
+        for i in range(N):  # 행
+            std = 0
+            for j in range(1, N):
+                if arr[i][j]:
+                    tmp = arr[i][j]
+                    if arr[i][std] == tmp:
+                        arr[i][std] *= 2
+                        std += 1
+                        arr[i][j] = 0
+                    elif arr[i][std] == 0:
+                        arr[i][std] = tmp
+                        arr[i][j] = 0
+                    else:
+                        std += 1
+                        arr[i][std] = tmp
+                        if std != j:
+                            arr[i][j] = 0
+
+    elif d == 3:  # 북
+        for i in range(N):  # 행
+            std = 0
+            for j in range(1, N):  # 열
+                if arr[j][i]:
+                    tmp = arr[j][i]
+                    if arr[std][i] == tmp:
+                        arr[std][i] *= 2
+                        std += 1
+                        arr[j][i] = 0
+
+                    elif arr[std][i] == 0:
+                        arr[std][i] = tmp
+                        arr[j][i] = 0
+
+                    else:
+                        std += 1
+                        arr[std][i] = tmp
+                        if std != j:
+                            arr[j][i] = 0
     return arr
-
-
-def right(arr):
-    for i in range(N):  # 행
-        j = N - 1
-        k = j - 1
-        while j >= 0 and k >= 0:
-            if arr[i][k] == 0:
-                k -= 1
-                continue
-            if arr[i][j] != arr[i][k]:
-                j -= 1
-                k = j
-            elif arr[i][j] == arr[i][k]:
-                arr[i][j] *= 2
-                arr[i][k] = 0
-                j = k - 1
-                k = j
-            k -= 1
-        temp = []
-        for l in range(N - 1, -1, -1):
-            if arr[i][l] != 0:
-                temp.append(arr[i][l])
-        length = len(temp)
-        for _ in range(N - length):
-            temp.append(0)
-        temp.reverse()
-        arr[i] = temp
-    return arr
-
-
-def up(arr):
-    for i in range(N):  # 열
-        j = 0
-        k = j + 1
-        while j < N and k < N:
-            if arr[k][i] == 0:
-                k += 1
-                continue
-            if arr[j][i] != arr[k][i]:
-                j += 1
-                k = j
-            elif arr[j][i] == arr[k][i]:
-                arr[j][i] *= 2
-                arr[k][i] = 0
-                j = k + 1
-                k = j
-            k += 1
-        temp = []
-        for l in range(N):
-            if arr[l][i] != 0:
-                temp.append(arr[l][i])
-        length = len(temp)
-        for _ in range(N - length):
-            temp.append(0)
-        for l in range(N):
-            arr[l][i] = temp[l]
-    return arr
-
-
-def down(arr):
-    for i in range(N):  # 열
-        j = N - 1
-        k = j - 1
-        while j >= 0 and k >= 0:
-            if arr[k][i] == 0:
-                k -= 1
-                continue
-            if arr[j][i] != arr[k][i]:
-                j -= 1
-                k = j
-            elif arr[j][i] == arr[k][i]:
-                arr[j][i] *= 2
-                arr[k][i] = 0
-                j = k - 1
-                k = j
-            k -= 1
-        temp = []
-        for l in range(N):
-            if arr[l][i] != 0:
-                temp.append(arr[l][i])
-        length = len(temp)
-        for _ in range(N - length):
-            temp.append(0)
-        temp.reverse()
-        for l in range(N):
-            arr[l][i] = temp[l]
-    for i in range(N):
-        print(arr[i])
-    print("===============")
-    return arr
-
-
-dict = {0: left, 1: right, 2: up, 3: down}
 
 
 def dfs(array, M):
@@ -135,10 +97,11 @@ def dfs(array, M):
         for i in range(N):
             result = max(result, max(array[i]))
         return
+
     # arr = [item[:] for item in array]
     for i in range(4):
-        tmp = dict[i](copy.deepcopy(array))
-        dfs(tmp, M + 1)
+        temp = move(copy.deepcopy(array), i)
+        dfs(temp, M + 1)
 
 
 def solution():
