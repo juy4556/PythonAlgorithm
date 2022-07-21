@@ -19,3 +19,4 @@ def solution():
     while q:
         num, x, y = heapq.heappop()
 
+
