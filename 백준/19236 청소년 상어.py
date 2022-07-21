@@ -18,5 +18,3 @@ def solution():
     new_q = []
     while q:
         num, x, y = heapq.heappop()
-
-
