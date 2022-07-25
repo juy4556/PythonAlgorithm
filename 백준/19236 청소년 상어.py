@@ -16,7 +16,7 @@ space[0][0] = [0, -1]  # (0,0) 좌표 물고기 잡아먹힘 -> 물고기 번호
 
 
 def move_fish():
-    for i in range(1, 16):
+    for i in range(1, 17):
         print(fish[i])
         if fish[i]:
             x, y, dir = fish[i]
