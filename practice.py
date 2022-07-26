@@ -1,3 +1,6 @@
-shark_dir = list(map(int ,input().split()))
-shark_dir = [d-1 for d in shark_dir]
-print(shark_dir)
+move_priority = [[] for _ in range(4)]
+for i in range(4):
+    for j in range(4):
+        s = list(map(int, input().split()))
+        move_priority[i].append(s)
+print(move_priority)
