@@ -1,6 +1,10 @@
-move_priority = [[] for _ in range(4)]
-for i in range(4):
-    for j in range(4):
-        s = list(map(int, input().split()))
-        move_priority[i].append(s)
-print(move_priority)
+from collections import defaultdict
+
+dict = defaultdict(list)
+dict[1] = [1,2]
+dict[1] = [2,3]
+dict[2] = [3,4]
+
+for i in range(1, len(dict)+1):
+    print(dict[i])
+print(dict)

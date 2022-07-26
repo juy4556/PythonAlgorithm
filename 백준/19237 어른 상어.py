@@ -1,95 +1,97 @@
 import copy
 
-N, M, k = map(int, input().split())
-space = []
-smell = [[[0, 0] for _ in range(N)] for _ in range(N)]  # 상어번호와 상어 냄새 정보 기록
+n, m, k = map(int, input().split())
+sea = [list(map(int, input().split())) for _ in range(n)]
+smell = [[[0, 0] for _ in range(n)] for _ in range(n)]
+
+s_dir = [0] + list(map(int, input().split()))
+
+dir = [[]]
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
-for _ in range(N):
-    space.append(list(map(int, input().split())))
-shark_dir = list(map(int, input().split()))  # 1~N번 상어의 진행 방향
-shark_dir = [d - 1 for d in shark_dir]
-move_priority = [[] for _ in range(M)]
-out = 0  # 벗어난 상어 수
-for i in range(M):
-    for j in range(M):
-        s = list(map(int, input().split()))
-        move_priority[i].append(s)
+
+for i in range(m):
+    array = []
+    for j in range(4):
+        array.append(list(map(int, input().split())))
+    dir.append(array)
 
 
-def shark_move():
+def move(sea):
     global out
-    new_space = copy.deepcopy(space)
-    for i in range(N):
-        for j in range(N):
-            if space[i][j] == 0:
+    s = copy.deepcopy(sea)
+    for i in range(n):
+        for j in range(n):
+            if sea[i][j] == 0:
                 continue
-            shark_num = new_space[i][j]
-            direction = shark_dir[shark_num - 1]
-            flag = False
-            for l in range(4):
-                d = move_priority[shark_num - 1][direction-1][l]
-                nx = i + dx[d-1]
-                ny = j + dy[d-1]
-                if not (0 <= nx < N and 0 <= ny < N):
+            s_n = s[i][j]
+            d = s_dir[s_n]
+            x, y = i, j
+            what = False
+            for p in range(4):
+                nd = dir[s_n][d - 1][p]
+                nx = x + dx[nd - 1]
+                ny = y + dy[nd - 1]
+                if not (0 <= nx < n and 0 <= ny < n):
                     continue
-                if smell[nx][ny][1] == 0:  # 새 칸에 남아있는 냄새가 없을 때
-                    flag = True
-                    if new_space[nx][ny] == 0:  # 새 칸에 상어가 없을 때
-                        new_space[nx][ny] = space[i][j]
-                        new_space[i][j] = 0
-                    else:  # 새 칸에 다른 상어 있을 때
-                        if new_space[nx][ny] > new_space[i][j]:
-                            new_space[nx][ny] = space[i][j]
+                if smell[nx][ny][1] == 0:
+                    if s[nx][ny] == 0:
+                        s[nx][ny] = sea[x][y]
+                        s[x][y] = 0
+                    else:
+                        if s[nx][ny] > s[x][y]:
+                            s[nx][ny] = sea[x][y]
                         out += 1
-                        new_space[i][j] = 0
-                    shark_dir[shark_num-1] = d
+                        s[x][y] = 0
+                    s_dir[s_n] = nd
+                    what = True
                     break
-            if flag:
+            if what:
                 continue
-            for l in range(4):
-                d = move_priority[shark_num - 1][direction-1][l]
-                nx = i + dx[d-1]
-                ny = j + dy[d-1]
-                if not (0 <= nx < N and 0 <= ny < N):
-                    continue
-                if smell[nx][ny][1] == shark_num:
-                    space[nx][ny] = space[i][j]
-                    space[i][j] = 0
-                    shark_dir[shark_num-1] = d
-                    break
-    return new_space
 
-def smell_light():
-    for i in range(N):
-        for j in range(N):
+            for p in range(4):
+                nd = dir[s_n][d - 1][p]
+                nx = x + dx[nd - 1]
+                ny = y + dy[nd - 1]
+                if not (0 <= nx < n and 0 <= ny < n):
+                    continue
+                if smell[nx][ny][1] == s_n:
+                    s[nx][ny] = sea[x][y]
+                    s[x][y] = 0
+                    s_dir[s_n] = nd
+                    break
+    return s
+
+
+def s_smell(k):
+    for i in range(n):
+        for j in range(n):
+            if sea[i][j] != 0:
+                smell[i][j][0], smell[i][j][1] = k, sea[i][j]
+
+
+def smell_down():
+    for i in range(n):
+        for j in range(n):
             if smell[i][j][1] == 0:
                 continue
-            elif smell[i][j][1] == 1:
-                smell[i][j] = [0, 0]
-            elif smell[i][j][1] > 1:
-                smell[i][j][1] -= 1
+            if smell[i][j][0] == 1:
+                smell[i][j][0], smell[i][j][1] = 0, 0
+            else:
+                smell[i][j][0] -= 1
 
 
-def solution():
-    global space
+count = 0
+out = 0
+while True:
+    if count >= 1000:
+        count = -1
+        break
+    s_smell(k)
+    sea = copy.deepcopy(move(sea))
+    count += 1
+    if out == m - 1:
+        break
+    smell_down()
 
-    time = 0
-    while True:
-        time += 1
-        if time > 1000:
-            time = -1
-            break
-        for i in range(N):
-            for j in range(N):
-                if space[i][j] > 0:
-                    smell[i][j] = [k, space[i][j]]
-        smell_light()
-        space = shark_move()
-        if out == M - 1:
-            break
-
-    print(time)
-
-
-solution()
+print(count)
