@@ -1,10 +1,8 @@
 import copy
-from collections import defaultdict
 
 space = []
 dx = [-1, -1, 0, 1, 1, 1, 0, -1]
 dy = [0, -1, -1, -1, 0, 1, 1, 1]
-fish = defaultdict(list)
 for _ in range(4):
     a1, a2, b1, b2, c1, c2, d1, d2 = map(int, input().split())
     space.append([[a1, a2 - 1], [b1, b2 - 1], [c1, c2 - 1], [d1, d2 - 1]])
@@ -19,24 +17,23 @@ def move_fish(sx, sy, board):
                 if board[x][y][0] == i:
                     fx, fy = x, y
                     break
-            if fx == -1 and fy == -1:
+        if fx == -1 and fy == -1:
+            continue
+        fd = board[fx][fy][1]
+        for d in range(8):
+            dir = (fd + d) % 8
+            nx, ny = fx + dx[dir], fy + dy[dir]
+            if nx < 0 or nx > 3 or ny < 0 or ny > 3 or (nx == sx and ny == sy):
                 continue
-            fd = board[fx][fy][1]
-
-            for d in range(8):
-                dir = (fd + d) % 8
-                nx, ny = x + dx[dir], y + dy[dir]
-                if nx < 0 or nx > 3 or ny < 0 or ny > 3 or (nx == sx and ny == sy):
-                    continue
-                board[fx][fy][0], board[nx][ny][0] = board[nx][ny][0], board[fx][fy][0]
-                board[fx][fy][1], board[nx][ny][1] = board[nx][ny][1], dir
-                break
+            board[fx][fy][0], board[nx][ny][0] = board[nx][ny][0], board[fx][fy][0]
+            board[fx][fy][1], board[nx][ny][1] = board[nx][ny][1], dir
+            break
 
 
-def dfs(sx, sy, N, board):
+def dfs(sx, sy, score, board):
     global result
-    N += board[sx][sy][0]
-    result = max(result, N)
+    score += board[sx][sy][0]
+    result = max(result, score)
     board[sx][sy][0] = 0
     move_fish(sx, sy, board)
     sd = board[sx][sy][1]
@@ -44,7 +41,7 @@ def dfs(sx, sy, N, board):
         nx, ny = sx + i * dx[sd], sy + i * dy[sd]
         if nx < 0 or nx > 3 or ny < 0 or ny > 3 or board[nx][ny][0] <= 0:
             continue
-        dfs(nx, ny, N, copy.deepcopy(board))
+        dfs(nx, ny, score, copy.deepcopy(board))
 
 
 def solution():
