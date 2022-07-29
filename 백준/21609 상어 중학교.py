@@ -10,25 +10,32 @@ count, rainbow = 0, 0
 
 def dfs(x, y, graph, num):
     global count, rainbow
+    print(x, y)
+    if space[x][y] == 0:
+        rainbow += 1
+        count += 1
+    elif space[x][y] == num:
+        count += 1
     for d in range(4):
         nx = x + dx[d]
         ny = y + dy[d]
-        if nx < 0 or nx > N - 1 or ny < 0 or ny > N - 1 or graph[nx][ny] != 0 or space[nx][ny] < 0:
+        if nx < 0 or nx > N - 1 or ny < 0 or ny > N - 1 or graph[nx][ny] > 0:
             continue
-        if space[nx][ny] == num:
-            graph[nx][ny] = num
-        elif space[nx][ny] == 0:
-            rainbow += 1
-            graph[nx][ny] = num
+        if space[nx][ny] == num or space[nx][ny] == 0:
             dfs(nx, ny, graph, num)
-            count += 1
+    return
 
 
-def remove_block(blocks):
-    for i in range(N):
-        for j in range(N):
-            if blocks[i][j] > 0:
-                space[i][j] = -2  # 빈 칸을 -2로 초기화
+def remove_block(x, y):
+    num = space[x][y]
+    space[x][y] = -2  # 빈 칸을 -2로 초기화
+    for d in range(4):
+        nx = x + dx[d]
+        ny = y + dy[d]
+        if nx < 0 or nx > N - 1 or ny < 0 or ny > N - 1 or space[nx][ny] < 0:
+            continue
+        if space[nx][ny] == num or space[nx][ny] == 0:
+            remove_block(nx, ny)
 
 
 def gravity():
@@ -64,27 +71,28 @@ def solution():
     global count, rainbow, space, score
     blocks = [[0 for _ in range(N)] for _ in range(N)]
     block = [0, 0, 0]  # 무지개 블록 수, x, y
-    while True:  # 일반 블록이 적어도 하나 있을 때까지 반복
+    while True:  # 블록 그룹 있을 때까지 반복
         max_count = 0
+        graph = [[0 for _ in range(N)] for _ in range(N)]
         for i in range(N):
             for j in range(N):
-                graph = [[0 for _ in range(N)] for _ in range(N)]
                 count, rainbow = 0, 0
+                if graph[i][j] > 0:
+                    continue
                 if space[i][j] > 0:
                     dfs(i, j, graph, space[i][j])
+                    print("graph:", graph)
                     if count > max_count:
                         max_count = count
                         block = [rainbow, i, j]
-                        blocks = graph
                     elif count == max_count:
                         if rainbow >= block[0]:
                             block = [rainbow, i, j]
-                            blocks = graph
         print(block)
 
         if max_count < 2:  # 블록 그룹 없을 때 break
             break
-        remove_block(blocks)
+        remove_block(block[1], block[2])
         print(space)
         score += pow(max_count, 2)
         gravity()
