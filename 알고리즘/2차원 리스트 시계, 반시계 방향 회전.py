@@ -8,3 +8,12 @@ def rotate_a_matrix_by_90_degree(a):
             result[j][n-i-1] = a[i][j]  # 반시계는 result[m-j-1][i] = a[i][j]
     return result
 
+space = [[1,2,3,4] for _ in range(4)]
+print(space)
+#시계방향
+space = list(map(list, zip(*space[::-1])))
+print(space)
+#반시계방향
+space = [[1,2,3,4] for _ in range(4)]
+space = list(map(list, zip(*space)))[::-1]
+print(space)
