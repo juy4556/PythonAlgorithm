@@ -1,5 +1,5 @@
 invitationPairs = []
-for i in range(8):
+for i in range(2):
     invitationPairs.append(list(map(int, input().split())))
 print(invitationPairs)
 
@@ -34,7 +34,8 @@ def solution(invitationPairs):
     print(score)
     result = []
     for i in range(3):
-        result.append(score[i][0])
+        if score[i][0] > 0:
+            result.append(score[i][0])
     print(result)
     return result
 
