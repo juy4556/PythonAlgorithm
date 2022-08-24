@@ -1,5 +1,6 @@
 tasks = list(map(int, input().split()))
 
+
 def solution(tasks):
     a = list(set(tasks))
     for i in range(len(a)):
