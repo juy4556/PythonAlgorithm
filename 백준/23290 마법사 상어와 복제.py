@@ -63,24 +63,33 @@ def shark_move():
     sdy = [0, -1, 0, 1]
     cnt = 0  # 잡아먹는 물고기 수
     route = []
+    flag2 = False
     for a, b, c in shark_move_way:
         dir = [a - 1, b - 1, c - 1]
         visited = [[0 for _ in range(4)] for _ in range(4)]
         tsx, tsy = sx, sy
         temp_count = 0
+        flag = False
         for i in range(3):
             nsx = tsx + sdx[dir[i]]
             nsy = tsy + sdy[dir[i]]
             if nsx < 0 or nsx > 3 or nsy < 0 or nsy > 3:
-                continue
+                flag = True
+                break
             tsx, tsy = nsx, nsy
-            if not visited[nsx][nsy] and len(new_space[nsx][nsy]) > 0:
+            if len(new_space[nsx][nsy]) > 0:
+                if not visited[nsx][nsy]:
+                    temp_count += len(new_space[nsx][nsy])
                 visited[nsx][nsy] = 1
-                temp_count += len(new_space[nsx][nsy])
+        if flag:
+            continue
+        if not flag2:
+            flag2 = True
+            route = dir
         if cnt < temp_count:
             cnt = temp_count
             route = dir
-    if (len(route)):
+    if len(route) > 0:
         for i in range(3):
             nsx = sx + sdx[route[i]]
             nsy = sy + sdy[route[i]]
@@ -89,6 +98,7 @@ def shark_move():
                 new_space[sx][sy] = []
                 fish_smell[sx][sy] = 3  # 물고기 냄새 남김
 
+
 def lose_fish_smell():
     for i in range(4):
         for j in range(4):
@@ -96,34 +106,13 @@ def lose_fish_smell():
                 fish_smell[i][j] -= 1
 
 
-def check():
-    for i in range(4):
-        for j in range(4):
-            print(space[i][j], end=" ")
-        print()
-    print("==============================")
-
-
-def new_check():
-    for i in range(4):
-        for j in range(4):
-            print(new_space[i][j], end=" ")
-        print()
-    print("-----------------------------------")
-
-
 def solution():
     init()
     for _ in range(S):
         fish_move()
-        # print("FISHMOVEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-        # new_check()
         shark_move()
         lose_fish_smell()
-        # check()
-        # new_check()
         reproduction()
-        # check()
 
     result = 0
     for i in range(4):
