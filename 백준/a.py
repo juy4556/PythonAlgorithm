@@ -1,5 +1,4 @@
 from collections import defaultdict
-from collections import deque
 arr = [['A', 10], ['B', 20], ['C', 30], ['A', 40], ['D', 50], ['A', 40]]
 dic = defaultdict(list)
 for i in range(len(arr)):
