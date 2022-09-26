@@ -37,6 +37,8 @@ def solution():
         rotate_belt()
         move_robot()
         push_robot()
+        print(A)
+        print(robot)
         if A.count(0) >= K:
             break
     print(count)
