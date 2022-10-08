@@ -23,7 +23,7 @@ def bfs(x, y, visited, bnum):
                     size += 1
                     visited[nx][ny] = bnum
                     q.append((nx, ny))
-                elif space[nx][ny] == 0 and not bnum in visited[nx][ny]:
+                elif space[nx][ny] == 0 and bnum not in visited[nx][ny]:
                     size += 1
                     rainbow += 1
                     visited[nx][ny].append(bnum)

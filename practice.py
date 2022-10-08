@@ -1,10 +1,20 @@
-a = '2022.32.14'
-a=a.split('.')
-today = int(''.join(a))
+import random
 
-print(a)
-b = [1,2,3,4]
-b = ''.join(map(str,b))
+std = 1000
+num = [0] * 10001
+cnt = 0
+for i in range(10000):
+    num[random.randint(0, 10000)] += 1
 
-print(b)
-print(today)
+while True:
+    cnt = 0
+    for i in range(std, 10000):
+        cnt += num[i]
+
+    if cnt > std:
+        std += 1000
+        cnt += 1
+    else:
+        break
+
+print(cnt)
