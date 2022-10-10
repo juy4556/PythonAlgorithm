@@ -42,7 +42,7 @@ def remove_block():
             elif space[i][j] == 0 and block[0][4] in visited[i][j]:
                 count += 1
                 space[i][j] = -2
-
+    print(count*count)
     score += count * count
 
 
@@ -65,15 +65,9 @@ def gravity():
                     k -= 1
             j -= 1
 
-score = 0
-while True:
-    visited = [[0] * N for _ in range(N)]
-    for i in range(N):
-        for j in range(N):
-            if space[i][j] == 0:
-                visited[i][j] = []
 
-    block_num, block = 1, []
+def find_block():
+    block_num = 1
     for i in range(N):
         for j in range(N):
             if space[i][j] > 0 and visited[i][j] == 0:
@@ -81,13 +75,29 @@ while True:
                 if size > 1:
                     block.append([size, rn, i, j, block_num])
                 block_num += 1
-    if len(block) == 0:
-        break
 
-    block.sort(key=lambda x: (-x[0], -x[1], -x[2], -x[3]))
-    remove_block()
-    gravity()
-    space = list(map(list, zip(*space)))[::-1]
-    gravity()
 
-print(score)
+if __name__ == "__main__":
+    score = 0
+    while True:
+        visited = [[0] * N for _ in range(N)]
+        for i in range(N):
+            for j in range(N):
+                if space[i][j] == 0:
+                    visited[i][j] = []
+
+        block = []
+        find_block()
+        if len(block) == 0:
+            break
+        block.sort(key=lambda x: (-x[0], -x[1], -x[2], -x[3]))
+        remove_block()
+        gravity()
+        space = list(map(list, zip(*space)))[::-1]
+        gravity()
+        for i in range(N):
+            for j in range(N):
+                print(space[i][j], end=' ')
+            print()
+        print("=======================")
+    print(score)
