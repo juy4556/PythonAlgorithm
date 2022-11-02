@@ -1,25 +1,26 @@
-paper = [1, 2, 4, 8, 16]
-ans = -1
+def solution(histroy, option, keyword):
+    answer = []
+    # if len(option) == 0:
+    #     for h in hisotry
+    for i in range(len(option)):
+        option_name, flag = option[i][0], option[i][1]
+        if flag == "F":
+            answer.append("empty")
+            continue
+        for h in histroy:
+            str = list(h.split(" "))
+            if keyword in str:
+                answer.append(h)
+
+    if len(answer) < 1:
+        answer.append("empty")
+    answer = list(set(answer))
+    return answer
 
 
-def dfs(arr, count, n):
-    global ans
-    if count > n:
-        return
-    else:
-        ans = max(ans, max(arr))
-        for i in range(len(arr) - 1):
-            temp = arr[i + 1:]
-            temp1 = arr[i::-1]
-            print("temp, temp1", temp, temp1)
-            for j in range(len(temp1)):
-                if len(temp) > j:
-                    temp[j] += temp1[j]
-                else:
-                    temp.append(temp1[j])
-            print(temp, count+1)
-            dfs(temp, count + 1, n)
+if __name__ == "__main__":
+    history = ["hello i am david", "hello kail", "hi tina"]
+    option = [["W", "T"]]
+    keyword = "hello"
 
-
-dfs(paper, 0, 3)
-print(ans)
+    print(solution(history, option, keyword))
