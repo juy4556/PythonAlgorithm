@@ -29,7 +29,7 @@ for i in range(t):
                 if reverse_count % 2 == 0:
                     del array[0]
                 else:
-                    del array[len(array)-1]
+                    del array[len(array) - 1]
 
     if reverse_count % 2 == 1:
         array.reverse()
