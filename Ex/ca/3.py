@@ -1,5 +1,5 @@
-def user_cost_check(answer, discounts, users, emoticons):
-
+def user_cost_check(discounts, users, emoticons):
+    global answer
     member = 0
     total_cost = 0
 
