@@ -1,5 +1,7 @@
 import sys
+
 input = sys.stdin.readline
+
 
 def solution():
     N, M = map(int, input().split())
@@ -16,5 +18,6 @@ def solution():
                     cnt += 1
         result = max(result, cnt)
     print(result)
+
 
 solution()
