@@ -29,6 +29,6 @@ while node:
     for i in range(len(parent) - 1, -1, -1):
         if parent[i] == now:
             node.append(i)
-            parent[i] = - 2 # 삭제 처리
-parent[delete] = -2 # 삭제 처리
+            parent[i] = - 2  # 삭제 처리
+parent[delete] = -2  # 삭제 처리
 print(find_leaf(parent))
