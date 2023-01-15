@@ -5,8 +5,8 @@ if __name__ == "__main__":
     kevin_bacon = int(1e9)
     for _ in range(M):
         a, b = map(int, input().split())
-        graph[a-1][b-1] = 1
-        graph[b-1][a-1] = 1
+        graph[a - 1][b - 1] = 1
+        graph[b - 1][a - 1] = 1
 
     for i in range(N):
         graph[i][i] = 0
@@ -19,5 +19,5 @@ if __name__ == "__main__":
     for i in range(N):
         if kevin_bacon > sum(graph[i]):
             kevin_bacon = sum(graph[i])
-            res = i+1
+            res = i + 1
     print(res)
