@@ -12,11 +12,11 @@ for i in range(K):
     next_uses = []
     for j in range(N):
         if q[j] in electrical_appliances[i:]:
-            next_use = electrical_appliances[i:].index(q[j]) # 멀티탭에 꽂아 있는 제품을 다음에 언제 사용하는지
+            next_use = electrical_appliances[i:].index(q[j])  # 멀티탭에 꽂아 있는 제품을 다음에 언제 사용하는지
         else:
             next_use = 101
         next_uses.append(next_use)
-    out = next_uses.index(max(next_uses)) # 가장 늦게 사용하는 제품 뽑기
+    out = next_uses.index(max(next_uses))  # 가장 늦게 사용하는 제품 뽑기
     q.pop(out)
     q.append(electrical_appliances[i])
     result += 1
