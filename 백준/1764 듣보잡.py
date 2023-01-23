@@ -3,7 +3,7 @@ if __name__ == "__main__":
     name = set()
     for _ in range(N):
         name.add(input())
-    arr =[]
+    arr = []
     for _ in range(M):
         not_see_name = input()
         if not_see_name in name:
