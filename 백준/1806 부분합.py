@@ -11,7 +11,7 @@ for start in range(N):
     if end <= start:
         continue
     if sub_sum >= S:
-        result = min(result, end-start)
+        result = min(result, end - start)
     sub_sum -= arr[start]
 
 if result == 100001:
