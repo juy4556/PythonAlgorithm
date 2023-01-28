@@ -8,11 +8,11 @@ dp[0][0] = triangle[0][0]
 for i in range(1, N):
     for j in range(len(triangle[i])):
         a, b = 0, 0
-        if j==0:
-            dp[i][j] = triangle[i][j] + dp[i-1][j]
-        elif j==len(triangle[i])-1:
-            dp[i][j] = triangle[i][j] + dp[i-1][j-1]
+        if j == 0:
+            dp[i][j] = triangle[i][j] + dp[i - 1][j]
+        elif j == len(triangle[i]) - 1:
+            dp[i][j] = triangle[i][j] + dp[i - 1][j - 1]
         else:
-            dp[i][j] = triangle[i][j] + max(dp[i-1][j-1], dp[i-1][j])
+            dp[i][j] = triangle[i][j] + max(dp[i - 1][j - 1], dp[i - 1][j])
 
-print(max(dp[N-1]))
+print(max(dp[N - 1]))
