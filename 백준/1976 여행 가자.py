@@ -27,7 +27,7 @@ for i in range(N):
     temp = list(map(int, input().split()))
     for j in range(len(temp)):
         if temp[j] == 1:
-            union_parent(parent, i+1, j+1)
+            union_parent(parent, i + 1, j + 1)
 
 plan = list(map(int, input().split()))
 root = find_parent(parent, plan[0])
