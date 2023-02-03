@@ -6,10 +6,10 @@ for _ in range(n):
 
 index = 0
 for n in num:
-    if sum(arr[index])+len(arr[index]) + n > m:
-        index+=1
+    if sum(arr[index]) + len(arr[index]) + n > m:
+        index += 1
         arr.append([n])
     else:
         arr[index].append(n)
 
-for i in range(1,len(arr)):
+for i in range(1, len(arr)):
