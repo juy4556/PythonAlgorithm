@@ -17,18 +17,19 @@ print(x, y)
 '''
 
 import sys
+
 input = sys.stdin.readline
 
 n = int(input())
 liquid = list(map(int, input().split()))
 
-start, end = 0, n-1
-x, y = 0, n-1
+start, end = 0, n - 1
+x, y = 0, n - 1
 result = abs(liquid[start] + liquid[end])
-while start<end:
-    sum = liquid[start]+liquid[end]
+while start < end:
+    sum = liquid[start] + liquid[end]
     if result > abs(sum):
-        result = abs(liquid[start]+liquid[end])
+        result = abs(liquid[start] + liquid[end])
         x, y = start, end
 
     if sum < 0:
