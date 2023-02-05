@@ -15,11 +15,12 @@ def dfs(x, y, num):
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
-        if nx < 0 or nx > n - 1 or ny < 0 or ny > n - 1 or temp[nx][ny]==True:
+        if nx < 0 or nx > n - 1 or ny < 0 or ny > n - 1 or temp[nx][ny] == True:
             continue
         if space[nx][ny] > num:
             temp[nx][ny] = True
             dfs(nx, ny, num)
+
 
 result = 1
 for num in range(max(map(max, space))):
