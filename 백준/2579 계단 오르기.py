@@ -8,11 +8,11 @@ if __name__ == "__main__":
         arr.append(int(input()))
     dp = [0] * (N + 1)
     dp[0] = arr[0]
-    dp[1] = dp[0]+arr[1]
+    dp[1] = dp[0] + arr[1]
     index = 2
     count = 1
-    while index <= N-1:
-        print(index,count)
+    while index <= N - 1:
+        print(index, count)
         if arr[index - 1] >= arr[index - 2]:
             count += 1
             if count == 3:
