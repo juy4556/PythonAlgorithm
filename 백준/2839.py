@@ -10,5 +10,5 @@ while N % 5 != 0:
 if flag:
     print(-1)
 else:
-    result += N//5
+    result += N // 5
     print(result)
