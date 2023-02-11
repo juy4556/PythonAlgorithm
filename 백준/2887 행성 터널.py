@@ -3,7 +3,7 @@ N = int(input())
 planet = []
 for i in range(N):
     x, y, z = map(int, input().split())
-    planet.append([x, y, z, i+1])
+    planet.append([x, y, z, i + 1])
 
 parent = [0] * (N + 1)
 for i in range(1, N + 1):
@@ -29,9 +29,9 @@ def init(edges):
     for pos in range(3):
         planet.sort(key=lambda p: p[pos])
         a = planet[0][3]
-        for i in range(1,N):
+        for i in range(1, N):
             b = planet[i][3]
-            edges.append((abs(planet[i][pos]-planet[i-1][pos]), a, b))
+            edges.append((abs(planet[i][pos] - planet[i - 1][pos]), a, b))
             a = b
     edges.sort()
 
