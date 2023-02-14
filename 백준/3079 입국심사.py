@@ -7,7 +7,7 @@ T.sort()
 start, end = 0, max(T) * M
 result = end
 while start <= end:
-    mid = (start+end) // 2
+    mid = (start + end) // 2
     count = 0
     for t in T:
         count += mid // t
