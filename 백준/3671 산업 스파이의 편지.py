@@ -1,13 +1,16 @@
 from itertools import permutations
+
+
 def isPrime(num):
     if num == 0 or num == 1:
         return False
     i = 2
-    while i*i <= num:
+    while i * i <= num:
         if num % i == 0:
             return False
         i += 1
     return True
+
 
 def solution():
     c = int(input())
@@ -15,7 +18,7 @@ def solution():
         already = []
         result = 0
         pieces = input()
-        for i in range(1, len(pieces)+1):
+        for i in range(1, len(pieces) + 1):
             perm = list(permutations(pieces, i))
             for p in perm:
                 temp = "".join(p)
@@ -23,5 +26,6 @@ def solution():
                     result += 1
                     already.append(int(temp))
         print(result)
+
 
 solution()
