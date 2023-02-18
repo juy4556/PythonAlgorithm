@@ -30,4 +30,4 @@ for i in range(t):
     if flag == 0:
         if reverse_count % 2 == 1:
             q.reverse()
-        print("["+",".join(q)+"]")
+        print("[" + ",".join(q) + "]")
