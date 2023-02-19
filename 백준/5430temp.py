@@ -1,5 +1,5 @@
 import sys
-from collections import deque
+
 '''
 array1 = sys.stdin.readline().rstrip()[1:-1].split(",")
 array2 = sys.stdin.readline().rstrip().split(",")
