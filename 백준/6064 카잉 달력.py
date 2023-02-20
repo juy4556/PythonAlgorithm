@@ -6,7 +6,7 @@ if __name__ == "__main__":
     T = int(input())
     for _ in range(T):
         M, N, x, y = map(int, input().split())
-        end = M*N
+        end = M * N
         while x <= end:
             if (x - y) % N == 0:
                 break
