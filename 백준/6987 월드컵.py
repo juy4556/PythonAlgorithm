@@ -1,6 +1,7 @@
 # 한팀과 다른 한팀에 대하여 경기 한 번씩 -> 5*6/2 = 15, 총 15경기
 ispossible = [False, False, False, False]
 
+
 def dfs(teams, order, i, j):
     if i == 6:
         ispossible[order] = True
