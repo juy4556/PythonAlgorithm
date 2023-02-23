@@ -18,13 +18,13 @@ for t in range(T):
                 while max_q and visited[max_q[0][1]] == 0:
                     heapq.heappop(max_q)
                 if max_q:
-                    visited[max_q[0][1]]=False
+                    visited[max_q[0][1]] = False
                     heapq.heappop(max_q)
             elif num == -1:  # 최솟값 삭제
                 while min_q and visited[min_q[0][1]] == 0:
                     heapq.heappop(min_q)
                 if min_q:
-                    visited[min_q[0][1]]=False
+                    visited[min_q[0][1]] = False
                     heapq.heappop(min_q)
     while max_q and visited[max_q[0][1]] == 0:
         heapq.heappop(max_q)
