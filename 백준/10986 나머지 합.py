@@ -13,5 +13,5 @@ for i in range(N):
 result += rest[0]
 for i in range(M):
     if rest[i] > 1:
-        result += rest[i]*(rest[i]-1)//2
+        result += rest[i] * (rest[i] - 1) // 2
 print(result)
