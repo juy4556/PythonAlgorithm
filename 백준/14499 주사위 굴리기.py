@@ -1,5 +1,6 @@
-import sys
 import copy
+import sys
+
 input = sys.stdin.readline
 
 # 세로 크기 N, 가로 크기 M (1 ≤ N, M ≤ 20), 주사위를 놓은 곳의 좌표 x, y(0 ≤ x ≤ N-1, 0 ≤ y ≤ M-1),
