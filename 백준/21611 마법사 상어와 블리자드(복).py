@@ -39,8 +39,8 @@ def blizzard(dir, dist):
 
 def move():
     start, end = 1, 2  # 투 포인터
-    while start < N * N-1 and end <= N * N-1:
-        while start < N * N-1:
+    while start < N * N - 1 and end <= N * N - 1:
+        while start < N * N - 1:
             sx, sy = indexing[start]
             if space[sx][sy] == 0:
                 break
@@ -49,7 +49,7 @@ def move():
             return
         if end <= start:
             end = start + 1
-        while end <= N * N-1:
+        while end <= N * N - 1:
             ex, ey = indexing[end]
             if space[ex][ey]:
                 break
@@ -63,7 +63,7 @@ def bomb():
     flag = False
     start, end = 1, 2
     cnt = 1  # 같은 번호의 연속된 구슬의 수
-    while start < N * N-1 and end <= N * N-1:
+    while start < N * N - 1 and end <= N * N - 1:
         sx, sy = indexing[start]
         ex, ey = indexing[end]
         if space[sx][sy] == space[ex][ey]:
@@ -88,7 +88,7 @@ def change():
     start, end = 1, 2
     index = 1
     cnt = 1  # 같은 번호의 연속된 구슬의 수
-    while start < N * N-1 and end <= N * N-1:
+    while start < N * N - 1 and end <= N * N - 1:
         sx, sy = indexing[start]
         ex, ey = indexing[end]
         if space[sx][sy] == space[ex][ey]:
@@ -111,10 +111,10 @@ def change():
 init()
 for magic in magics:
     d, s = magic
-    blizzard(d-1, s)
+    blizzard(d - 1, s)
     move()
     while bomb():
         move()
     change()
 
-print(1*bomb_marble[0]+2*bomb_marble[1]+3*bomb_marble[2])
+print(1 * bomb_marble[0] + 2 * bomb_marble[1] + 3 * bomb_marble[2])
