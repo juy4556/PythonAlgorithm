@@ -42,7 +42,7 @@ def remove_block():
             elif space[i][j] == 0 and block[0][4] in visited[i][j]:
                 count += 1
                 space[i][j] = -2
-    print(count*count)
+    print(count * count)
     score += count * count
 
 
