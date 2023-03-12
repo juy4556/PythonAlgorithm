@@ -65,7 +65,7 @@ def solution():
                 for i in range(len(graph[x][y])):
                     if graph[x][y][i][0] == k + 1:
                         for j in range(i, len(graph[x][y])):
-                            horses[graph[x][y][j][0]-1][0], horses[graph[x][y][j][0]-1][1] = new_x, new_y
+                            horses[graph[x][y][j][0] - 1][0], horses[graph[x][y][j][0] - 1][1] = new_x, new_y
                         temp = graph[x][y][i:]
                         graph[x][y] = graph[x][y][:i]
                         break
