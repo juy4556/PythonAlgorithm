@@ -1,5 +1,6 @@
-from collections import defaultdict
 import sys
+from collections import defaultdict
+
 input = sys.stdin.readline
 
 N = int(input())
@@ -28,14 +29,14 @@ def locate(student):
                         empty_cnt += 1
             if like < like_cnt:
                 like = like_cnt
-                loc = [[i,j,empty_cnt]]
+                loc = [[i, j, empty_cnt]]
             elif like == like_cnt:
-                loc.append([i,j,empty_cnt])
+                loc.append([i, j, empty_cnt])
 
     if len(loc) == 1:
         space[loc[0][0]][loc[0][1]] = student
     elif len(loc) > 1:
-        loc.sort(key = lambda x:-x[2])
+        loc.sort(key=lambda x: -x[2])
         space[loc[0][0]][loc[0][1]] = student
 
 
@@ -55,5 +56,5 @@ for i in range(N):
                 if space[nx][ny] in dic[space[i][j]]:
                     satified += 1
         if satified:
-            res += pow(10,satified-1)
+            res += pow(10, satified - 1)
 print(res)
