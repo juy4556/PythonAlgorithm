@@ -8,7 +8,7 @@ result = 0
 
 def find_column(i):
     global result
-    visited = [0] * N # 경사로 둔 위치
+    visited = [0] * N  # 경사로 둔 위치
     col = space[0][i]
     col_flag = True
     j = 1
@@ -37,12 +37,12 @@ def find_column(i):
             else:  # 앞쪽이 더 작을 때
                 if j - L >= 0 and not visited[j]:
                     for k in range(j - L, j):
-                        if space[j-1][i] != space[k][i] or visited[k]:
+                        if space[j - 1][i] != space[k][i] or visited[k]:
                             flag1 = False
                             col_flag = False
                             break
                     if flag1:
-                        for k in range(j-L, j):
+                        for k in range(j - L, j):
                             visited[k] = 1
                         col = space[j][i]
                 else:
@@ -87,7 +87,7 @@ def find_row(i):
             else:  # 앞쪽이 더 작을 때
                 if j - L >= 0 and not visited[j]:
                     for k in range(j - L, j):
-                        if space[i][j-1] != space[i][k] or visited[k]:
+                        if space[i][j - 1] != space[i][k] or visited[k]:
                             flag1 = False
                             row_flag = False
                             break
