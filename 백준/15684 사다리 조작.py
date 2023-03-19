@@ -37,7 +37,7 @@ def dfs(depth, idx):
 
 for i in range(1, h + 1):
     for j in range(1, n + 1):
-        if not visited[i][j - 1] and not visited[i][j] and (j<n and not visited[i][j + 1]):
+        if not visited[i][j - 1] and not visited[i][j] and (j < n and not visited[i][j + 1]):
             combi.append([i, j])
 
 answer = 4
