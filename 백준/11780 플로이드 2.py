@@ -9,7 +9,7 @@ def shortestPath(a, b):
     if graph[a][b] == 0:
         return []
     k = graph[a][b]
-    return shortestPath(a, k-1) + [k] + shortestPath(k-1, b)
+    return shortestPath(a, k - 1) + [k] + shortestPath(k - 1, b)
 
 
 for _ in range(m):
@@ -37,6 +37,6 @@ for i in range(n):
         if cities[i][j] == 0:
             print(0)
             continue
-        path = [i+1] + shortestPath(i, j) + [j+1]
+        path = [i + 1] + shortestPath(i, j) + [j + 1]
         print(len(path), end=' ')
         print(*path)
