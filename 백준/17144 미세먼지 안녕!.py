@@ -29,32 +29,32 @@ def diffusion(array, r, c):
 def purification(air_purifier):
     # 반시계빵향 순환
     for i in range(air_purifier, 0, -1):
-        space[i][0] = space[i-1][0]
+        space[i][0] = space[i - 1][0]
 
-    for i in range(C-1):
-        space[0][i] = space[0][i+1]
+    for i in range(C - 1):
+        space[0][i] = space[0][i + 1]
 
     for i in range(air_purifier):
-        space[i][C - 1] = space[i+1][C - 1]
+        space[i][C - 1] = space[i + 1][C - 1]
 
-    for i in range(C-1,0,-1):
-        space[air_purifier][i] = space[air_purifier][i-1]
+    for i in range(C - 1, 0, -1):
+        space[air_purifier][i] = space[air_purifier][i - 1]
 
     space[air_purifier][0] = -1
     space[air_purifier][1] = 0
 
     # 시계방향 순환
-    for i in range(air_purifier+1, R-1):
-        space[i][0] = space[i+1][0]
+    for i in range(air_purifier + 1, R - 1):
+        space[i][0] = space[i + 1][0]
 
-    for i in range(C-1):
-        space[R-1][i] = space[R-1][i+1]
+    for i in range(C - 1):
+        space[R - 1][i] = space[R - 1][i + 1]
 
-    for i in range(R-1, air_purifier+1, -1):
-        space[i][C-1] = space[i-1][C-1]
+    for i in range(R - 1, air_purifier + 1, -1):
+        space[i][C - 1] = space[i - 1][C - 1]
 
     for i in range(C - 1, 1, -1):
-        space[air_purifier+1][i] = space[air_purifier+1][i-1]
+        space[air_purifier + 1][i] = space[air_purifier + 1][i - 1]
     space[air_purifier + 1][0] = -1
     space[air_purifier + 1][1] = 0
 
