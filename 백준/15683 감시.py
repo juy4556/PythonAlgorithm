@@ -57,4 +57,5 @@ def solution():
     dfs(0, space)
     print(result)
 
+
 solution()
