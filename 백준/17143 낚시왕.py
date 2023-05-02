@@ -26,7 +26,7 @@ def move_shark(r, c, a):
                 dir = 2
             elif r == R - 1:
                 dir = 1
-            if 0 <= r + dx[dir-1] <= R - 1:
+            if 0 <= r + dx[dir - 1] <= R - 1:
                 r += dx[dir - 1]
     elif dir == 3 or dir == 4:
         temp = speed % (2 * C - 2)
@@ -35,7 +35,7 @@ def move_shark(r, c, a):
                 dir = 3
             elif c == C - 1:
                 dir = 4
-            if 0 <= c + dy[dir-1] <= C - 1:
+            if 0 <= c + dy[dir - 1] <= C - 1:
                 c += dy[dir - 1]
     return r, c, speed, dir, size
 
