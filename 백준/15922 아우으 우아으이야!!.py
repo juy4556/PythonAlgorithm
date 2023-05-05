@@ -16,7 +16,7 @@ def solution():
             result += b - a
             a, b = lines[i][0], lines[i][1]
         i += 1
-    result += b-a
+    result += b - a
     print(result)
 
 
