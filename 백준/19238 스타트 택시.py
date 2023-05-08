@@ -32,7 +32,7 @@ def find_passenger(x, y):
             q.append([nx, ny])
     index = len(passenger)
     min_dist = int(1e9)
-    passenger.sort(key = lambda k: (k[0], k[1]))
+    passenger.sort(key=lambda k: (k[0], k[1]))
     for i in range(len(passenger)):
         if 0 <= dist[passenger[i][0]][passenger[i][1]] < min_dist:
             min_dist = dist[passenger[i][0]][passenger[i][1]]

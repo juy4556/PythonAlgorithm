@@ -9,10 +9,12 @@ space = []
 for i in range(n):
     space.append(list(map(int, input().split())))
 visited = [[False] * m for _ in range(n)]
-def bfs(space, x, y, z): # x,y는 좌표 z는 바이러스 번호
+
+
+def bfs(space, x, y, z):  # x,y는 좌표 z는 바이러스 번호
     queue = deque()
     queue.append((x, y))
-    visited[x][y]=True
+    visited[x][y] = True
     while queue:
         x, y = queue.popleft()
         for i in range(4):
@@ -27,9 +29,10 @@ def bfs(space, x, y, z): # x,y는 좌표 z는 바이러스 번호
             elif visited[nx][ny]:
                 space[nx][ny] = 3
 
+
 for i in range(n):
     for j in range(m):
         if space[i][j] == 1:
-            bfs(space,i,j,1)
+            bfs(space, i, j, 1)
         elif space[i][j] == 2:
-            bfs(space,i,j,2)
+            bfs(space, i, j, 2)

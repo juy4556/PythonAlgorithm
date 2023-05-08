@@ -32,7 +32,7 @@ def solution():
     for n in range(N):
         if find_parent(parent, a) == find_parent(parent, n + 1):
             cnt += 1
-    result = cnt * (N-cnt)
+    result = cnt * (N - cnt)
 
     print(result)
 

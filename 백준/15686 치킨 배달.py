@@ -24,7 +24,7 @@ def dfs(begin):
         for h1, h2 in homes:
             tmp = int(1e9)
             for c1, c2 in c:
-                tmp = min(tmp, abs((c1 - h1))+abs((c2-h2)))
+                tmp = min(tmp, abs((c1 - h1)) + abs((c2 - h2)))
             temp += tmp
         result = min(result, temp)
         return
