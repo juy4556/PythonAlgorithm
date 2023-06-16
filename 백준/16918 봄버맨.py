@@ -46,8 +46,6 @@ if __name__ == "__main__":
                 space[i][j] += 1
 
     time = 2
-    if N > 5:
-        N = N % 5 + 2
 
     while time <= N:
         if time % 2 == 0:
