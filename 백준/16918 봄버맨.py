@@ -11,6 +11,8 @@ def plant_bombs():
         for j in range(C):
             if space[i][j] == 0:
                 space[i][j] = 1
+                continue
+            space[i][j] += 1
 
 
 def explode_bombs():
@@ -40,22 +42,17 @@ if __name__ == "__main__":
             else:
                 space[i][j] = 0
 
-    for i in range(R):
-        for j in range(C):
-            if space[i][j]:
-                space[i][j] += 1
-
-    time = 2
+    time = 1
 
     while time <= N:
         if time % 2 == 0:
             plant_bombs()
         else:
             explode_bombs()
-        for i in range(R):
-            for j in range(C):
-                if space[i][j]:
-                    space[i][j] += 1
+            for i in range(R):
+                for j in range(C):
+                    if space[i][j]:
+                        space[i][j] += 1
         time += 1
 
     for i in range(R):
