@@ -14,5 +14,5 @@ if __name__ == "__main__":
 
             if dp[i][j] >= M:
                 result = min(result, j)
-
+                break
     print(result)
