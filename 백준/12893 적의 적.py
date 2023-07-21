@@ -29,7 +29,7 @@ if __name__ == "__main__":
         graph[a].append(b)
         graph[b].append(a)
 
-    for n in range(1, N+1):
+    for n in range(1, N + 1):
         if not visited[n]:
             result = bfs(graph, n)
             if result == 0:
