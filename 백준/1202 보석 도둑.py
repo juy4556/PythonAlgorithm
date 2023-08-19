@@ -3,17 +3,6 @@ import sys
 
 input = sys.stdin.readline
 
-
-def bin_search(target, start, end):
-    while start <= end:
-        mid = (start + end) // 2
-        if target <= baggage[mid]:
-            end = mid - 1
-            continue
-        start = mid + 1
-    return start
-
-
 if __name__ == "__main__":
     N, K = map(int, input().split())
     items = []
