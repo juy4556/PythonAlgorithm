@@ -9,7 +9,7 @@ def bin_search1(arr, target):
             end = mid - 1
             continue
         start = mid + 1
-    return start, end
+    return start, end, mid
 
 
 def bin_search2(arr, target):
@@ -20,7 +20,7 @@ def bin_search2(arr, target):
             end = mid - 1
             continue
         start = mid + 1
-    return start, end
+    return start, end, mid
 
 
 a = [1, 63, 46, 36, 246, 43, 57, 63, 34, 6578, 467, 534, 23, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 11, 11, 1, 1, 2]
