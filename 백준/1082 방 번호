@@ -1,0 +1,46 @@
+import sys
+
+input = sys.stdin.readline
+if __name__ == "__main__":
+    N = int(input())
+    P = list(map(int, input().split()))
+    M = int(input())
+    result = ""
+    minimum = [0, P[0]]
+    first = 0
+    for i in range(1, N):
+        if minimum[1] >= P[i]:
+            minimum = [i, P[i]]
+
+    if minimum[0] == 0:
+        first = [0, P[0]]
+        count = 0
+        flag = 0
+        for i in range(1, N):
+            rest = M - P[i]
+            if rest < 0:
+                continue
+            flag = 1
+            c = rest // minimum[1]
+            print(rest, c, count)
+            if count <= c:
+                first = [i, P[i]]
+                count = c
+        if flag:
+            result += str(first[0])
+            M -= first[1]
+
+    for i in range(N - 1, minimum[0], -1):
+        while True:
+            count = M // minimum[1]
+            rest = M - (count - 1) * minimum[1]
+            if count > 0 and rest >= P[i]:
+                rest -= P[i]
+                M -= P[i]
+                result += str(i)
+            else:
+                break
+    count = M // minimum[1]
+    for i in range(count):
+        result += str(minimum[0])
+    print(int(result))
