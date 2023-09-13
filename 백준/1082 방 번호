@@ -22,7 +22,6 @@ if __name__ == "__main__":
                 continue
             flag = 1
             c = rest // minimum[1]
-            print(rest, c, count)
             if count <= c:
                 first = [i, P[i]]
                 count = c
