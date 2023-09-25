@@ -1,26 +1,15 @@
 from collections import deque
+import sys
 
-N, M = map(int, input().split())
-space = []
-for _ in range(N):
-    space.append(list(map(int, input().split())))
-comb = []
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
-result = int(1e9)
-visited = [[0] * N for _ in range(N)]
-virus = []
-q = deque()
-wall_count = 0
+input = sys.stdin.readline
 
 
-def check(array):
-    count = 0
+def check(space, array):
     for i in range(N):
-        count += array[i].count(-1)
-    if count == wall_count:  # 방문하지 않은 위치(-1)과 벽 갯수가 같으면 벽을 제외한 모든 위치 도달함을 의미
-        return True
-    return False
+        for j in range(N):
+            if space[i][j] == 0 and array[i][j] == -1:
+                return False
+    return True
 
 
 def spread_virus(x, y):
@@ -44,7 +33,7 @@ def bfs():
     while q:
         x, y = q.popleft()
         spread_virus(x, y)  # 바이러스 퍼짐
-    if check(visited):
+    if check(space, visited):
         for i in range(N):
             for j in range(N):
                 if space[i][j] == 0:  # check를 통과하고 본 위치가 빈칸이었으면 time 초기화
@@ -62,8 +51,20 @@ def comb_three(array, begin):
         comb.pop()
 
 
-def solution():
-    global wall_count
+if __name__ == "__main__":
+    N, M = map(int, input().split())
+    space = []
+    for _ in range(N):
+        space.append(list(map(int, input().split())))
+    comb = []
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, 0, -1]
+    result = int(1e9)
+    visited = [[0] * N for _ in range(N)]
+    virus = []
+    q = deque()
+    wall_count = 0
+
     for i in range(N):
         for j in range(N):
             if space[i][j] == 2:
@@ -76,6 +77,3 @@ def solution():
         print(-1)
     else:
         print(result)
-
-
-solution()
