@@ -1,27 +1,28 @@
+import sys
+
+input = sys.stdin.readline
 if __name__ == "__main__":
     for _ in range(3):
         N = int(input())
         coins = {}
-        key_set = []
+        total = 0
         for _ in range(N):
-            price, count = map(int, input().split())
-            coins[price] = count
-            key_set.append(price)
+            coin, amount = map(int, input().split())
+            coins[coin] = amount
+            total += coin * amount
 
-        key_set.sort(reversed)
-        a, b = 0, 0
-        for k in key_set:
-            if coins[k] % 2 == 0:
-                continue
-            if a < b:
-                a += k * coins[k]
-            else:
-                b += k * coins[k]
+        if total & 1:
+            print(0)
+            continue
+        target = total // 2
+        dp = [0 for _ in range(target + 1)]
+        dp[0] = 1
+        for coin in coins.keys():
+            for money in range(target, coin - 1, -1):
+                if dp[money - coin]:
+                    amount = coins[coin]
+                    for i in range(amount):
+                        if money + coin * i <= target:
+                            dp[money + coin * i] = 1
 
-            if a == b:
-                a = 0
-                b = 0
-
-        '''
-        50 40 30 10 
-        '''
+        print(dp[target])
