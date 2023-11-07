@@ -1,6 +1,7 @@
 from bisect import bisect_left, bisect_right
 
 
+# lower_bounded
 def bin_search1(arr, target):
     start, end = 0, len(arr) - 1
     while start <= end:
@@ -12,6 +13,7 @@ def bin_search1(arr, target):
     return start, end, mid
 
 
+# higher_bounded
 def bin_search2(arr, target):
     start, end = 0, len(arr) - 1
     while start <= end:
