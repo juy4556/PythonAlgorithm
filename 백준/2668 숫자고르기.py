@@ -12,7 +12,6 @@ def find_graph(start, num_set):
 
 if __name__ == "__main__":
     N = int(input())
-    parent = [i for i in range(N + 1)]
     result = []
     nums = [0]
     visited = [0 for i in range(N + 1)]
