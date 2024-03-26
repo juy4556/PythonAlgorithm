@@ -1,40 +1,66 @@
 '''
-'숫자고르기'
+00110
+10000
+00001
+10011
+00000
 '''
-# 24.01.30 15:12 ~
 import sys
 
+plus = [[0, 0], [-1, 0], [1, 0], [0, 1], [0, -1]]
+cross = [[0, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
 input = sys.stdin.readline
+N = 5
+M = 5
+space = [[0, 0, 1, 1, 0], [1, 0, 0, 0, 0], [0, 0, 0, 0, 1], [1, 0, 0, 1, 1], [0, 0, 0, 0, 0]]
+result = N * M
 
 
-def dfs(index):
-    if visit[index] == 2 or answer[array[index] - 1] == 1:
-        return
+def press_button(space, x, y):
+    if (x + y) & 1:
+        for dx, dy in cross:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < N and 0 <= ny < M:
+                space[nx][ny] ^= 1
     else:
-        visit[index] += 1
-        if visit[index] == 2:
-            answer[array[index] - 1] = 1
-        dfs(array[index] - 1)
+        for dx, dy in plus:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < N and 0 <= ny < M:
+                space[nx][ny] ^= 1
 
 
-N = int(input())
-array = []
-for i in range(N):
-    array.append(int(input()))
-answer = [0 for _ in range(N)]
+def check_space(space):
+    count = 0
+    for i in range(N):
+        count += space[i].count(1)
+        if count:
+            return False
+    return True
 
-for i in range(N):
-    value = array[i] - 1
-    if answer[value] == 0:
-        visit = [0 for _ in range(N)]
-        dfs(i)
 
-length = 0
-for i in range(N):
-    if answer[i] == 1:
-        length += 1
+def dfs(pos, space, visited, depth):
+    global result
+    if check_space(space):
+        result = min(result, depth)
+        return
+    if depth >= result:
+        return
+    for i in range(0, len(pos)):
+        x, y = pos[i]
+        if not visited[i] and space[x][y] == 1:
+            visited[i] = 1
+            press_button(space, x, y)
+            dfs(pos, space[:], visited, depth + 1)
+            press_button(space, x, y)
+            visited[i] = 0
 
-print(length)
-for i in range(N):
-    if answer[i] == 1:
-        print(i + 1)
+
+if __name__ == "__main__":
+    pos = []
+    for i in range(N):
+        for j in range(M):
+            pos.append((i, j))
+    visited = [0 for _ in range(N * M)]
+
+    dfs(pos, space[:], visited, 0)
+    print(result)

@@ -22,9 +22,9 @@ def solution(x, y, r, v):
     count = 0
     result = 0
     for i in range(len(x)):
-        lx = min(rx, x[i] - r[i])
+        lx = min(lx, x[i] - r[i])
         by = min(by, y[i] - r[i])
-        rx = max(lx, x[i] + r[i])
+        rx = max(rx, x[i] + r[i])
         ty = max(ty, y[i] + r[i])
 
     for i in range(0, len(v), 2):
