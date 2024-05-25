@@ -3,28 +3,21 @@ import sys
 input = sys.stdin.readline
 
 
-def check(n):
-    for i in range(n):
-        if rows[n] == rows[i] or abs(rows[n] - rows[i]) == abs(n - i):
-            return 0
-    return 1
-
-
-def dfs(n):
+def dfs(n, row, cols, left, right):
     global result
-    if n == N:
+    if row == n:
         result += 1
         return
 
-    for i in range(N):
-        rows[n] = i
-        if check(n):
-            dfs(n + 1)
+    avail_cols = ~(left | cols | right) & ((1 << n) - 1)
+    while avail_cols:
+        avail_col = avail_cols & -avail_cols
+        avail_cols -= avail_col
+        dfs(N, row + 1, cols | avail_col, (left | avail_col) << 1, (right | avail_col) >> 1)
 
 
 if __name__ == "__main__":
     N = int(input())
-    rows = [0 for _ in range(N)]
     result = 0
-    dfs(0)
+    dfs(N, 0, 0, 0, 0)
     print(result)
